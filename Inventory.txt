@@ -1,0 +1,10 @@
+2005 85101.215
+ProductionData{year=2005, dailyProduction=85101.215}
+2006 85153.026
+ProductionData{year=2006, dailyProduction=85153.026}
+2007 85167.471
+ProductionData{year=2007, dailyProduction=85167.471}
+2008 86569.887
+ProductionData{year=2008, dailyProduction=86569.887}
+2009 85738.804
+ProductionData{year=2009, dailyProduction=85738.804}
