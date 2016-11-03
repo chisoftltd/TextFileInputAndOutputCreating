@@ -45,7 +45,7 @@ public class BrentCrude2000To2015 {
 
         XYSeriesCollection data = new XYSeriesCollection();
         data.addSeries(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("Line Chart", "X", "Y", data);
+        JFreeChart chart = ChartFactory.createXYLineChart("Year Price Chart", "Year", "Price", data);
         ChartFrame frame = new ChartFrame("XY graph using JFreeFrame", chart);
         frame.pack();
         frame.setVisible(true);
