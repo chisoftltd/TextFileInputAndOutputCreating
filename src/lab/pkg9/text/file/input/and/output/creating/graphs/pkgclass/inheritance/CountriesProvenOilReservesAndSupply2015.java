@@ -6,8 +6,11 @@
 package lab.pkg9.text.file.input.and.output.creating.graphs.pkgclass.inheritance;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -20,30 +23,29 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author 1609963
  */
-public class ProvenOilReservesAndSupply2015 {
-
+public class CountriesProvenOilReservesAndSupply2015 {
     public static void main(String[] args) {
-        ArrayList<String> country = new ArrayList<>();
-        ArrayList<Double> barrel = new ArrayList<>();
-        ArrayList<Double> production = new ArrayList<>();
-
-        File file = new File("ProvenOilReservesAndSupply2015.txt");
-        try {
+        
+            ArrayList<Country> country = new ArrayList<>();
+            /*ArrayList<String> country = new ArrayList<>();
+            ArrayList<Double> barrel = new ArrayList<>();
+            ArrayList<Double> production = new ArrayList<>();
+*/
+            
+            File file = new File("ProvenOilReservesAndSupply2015.txt");
+        try {    
             Scanner input = new Scanner(file);
             while (input.hasNext()) {
-                country.add(input.next());
-                production.add(input.nextDouble());
-                barrel.add(input.nextDouble());
-
+                country.add(new Country(input.next(), input.nextDouble(), input.nextDouble()));
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error : " + e);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error : " + ex);
         }
-
-        DefaultCategoryDataset datasetCountryReserve = new DefaultCategoryDataset();
+        
+                DefaultCategoryDataset datasetCountryReserve = new DefaultCategoryDataset();
 
         for (int i = 0; i < country.size(); i++) {
-            datasetCountryReserve.addValue(barrel.get(i), country.get(i), production.get(i));
+            datasetCountryReserve.addValue((double)country.get(i).getReserve(), country.get(i).getName(), country.get(i).getSupUnit());
         }
 
         JFreeChart barChartCountryReserve = ChartFactory.createBarChart3D(" Country and Proven Reserves Chart", "Country", "Reserve", datasetCountryReserve);
@@ -51,8 +53,8 @@ public class ProvenOilReservesAndSupply2015 {
         ChartFrame frameCountryReserve = new ChartFrame("Bat Chart using JFreeChart - Country and Proven Reserves Chart", barChartCountryReserve);
         frameCountryReserve.pack();
         frameCountryReserve.setVisible(true);
-
-        try {
+        
+         try {
             ChartUtilities.saveChartAsJPEG(new File("H:"
                     + "\\NetBeansProjects\\Lab 9 Text File Input "
                     + "and output Creating Graphs Class Inheritance"
@@ -61,11 +63,11 @@ public class ProvenOilReservesAndSupply2015 {
         } catch (Exception ex) {
             System.out.print("Problem saving jpg file");
         }
-
-        DefaultCategoryDataset datasetCountryProduction = new DefaultCategoryDataset();
+         
+         DefaultCategoryDataset datasetCountryProduction = new DefaultCategoryDataset();
 
         for (int i = 0; i < country.size(); i++) {
-            datasetCountryProduction.addValue(production.get(i), country.get(i), barrel.get(i));
+            datasetCountryProduction.addValue(country.get(i).getSupply(), country.get(i).getName(), country.get(i).getResUnit());
         }
 
         JFreeChart barChartCountryProduction = ChartFactory.createBarChart3D("Country and Daily Production Chart", "Country", "Production", datasetCountryProduction);
@@ -86,7 +88,7 @@ public class ProvenOilReservesAndSupply2015 {
         DefaultCategoryDataset datasetCountryProductionYear = new DefaultCategoryDataset();
 
         for (int i = 0; i < country.size(); i++) {
-            datasetCountryProductionYear.addValue((barrel.get(i) / production.get(i)), country.get(i), barrel.get(i));
+            datasetCountryProductionYear.addValue((country.get(i).getReserve() / country.get(i).getSupply()), country.get(i).getName(), country.get(i).getResUnit());
         }
 
         JFreeChart barChartCountryProductionYear = ChartFactory.createBarChart3D("Country and Production Year Chart", "Country", "Production Year", datasetCountryProductionYear);
@@ -107,7 +109,7 @@ public class ProvenOilReservesAndSupply2015 {
         DefaultPieDataset dataPie = new DefaultPieDataset();
 
         for (int i = 0; i < 12; i++) {
-            dataPie.setValue(country.get(i), barrel.get(i));
+            dataPie.setValue(country.get(i).getName(), country.get(i).getReserve());
         }
 
         JFreeChart pieChart = ChartFactory.createPieChart("12 Countries and Oil Reserves", dataPie);
@@ -126,5 +128,4 @@ public class ProvenOilReservesAndSupply2015 {
             System.out.print("Problem saving jpg file");
         }
     }
-
 }
