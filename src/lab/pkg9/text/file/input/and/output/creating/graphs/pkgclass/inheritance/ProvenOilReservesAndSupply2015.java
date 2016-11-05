@@ -69,7 +69,7 @@ public class ProvenOilReservesAndSupply2015 {
         ChartFrame frameCountryProduction = new ChartFrame("Bat Chart using JFreeChart - Country and Daily Production Chart", barChartCountryProduction);
         frameCountryProduction.pack();
         frameCountryProduction.setVisible(true);
-        
+
         try {
             ChartUtilities.saveChartAsJPEG(new File("H:"
                     + "\\NetBeansProjects\\Lab 9 Text File Input "
@@ -79,18 +79,18 @@ public class ProvenOilReservesAndSupply2015 {
         } catch (Exception ex) {
             System.out.print("Problem saving jpg file");
         }
-        
+
         DefaultCategoryDataset datasetCountryProductionYear = new DefaultCategoryDataset();
 
         for (int i = 0; i < country.size(); i++) {
-            datasetCountryProductionYear.addValue((barrel.get(i)/production.get(i)), country.get(i), barrel.get(i));
+            datasetCountryProductionYear.addValue((barrel.get(i) / production.get(i)), country.get(i), barrel.get(i));
         }
 
         JFreeChart barChartCountryProductionYear = ChartFactory.createBarChart3D("Country and Production Year Chart", "Country", "Production Year", datasetCountryProductionYear);
         ChartFrame frameCountryProductionYear = new ChartFrame("Bat Chart using JFreeChart - Country and Production Year Chart", barChartCountryProductionYear);
         frameCountryProductionYear.pack();
         frameCountryProductionYear.setVisible(true);
-        
+
         try {
             ChartUtilities.saveChartAsJPEG(new File("H:"
                     + "\\NetBeansProjects\\Lab 9 Text File Input "
