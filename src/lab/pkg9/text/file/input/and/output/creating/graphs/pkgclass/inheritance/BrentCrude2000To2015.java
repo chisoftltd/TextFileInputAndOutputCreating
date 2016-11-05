@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -38,7 +39,7 @@ public class BrentCrude2000To2015 {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(BrentCrude2000To2015.class.getName()).log(Level.SEVERE, null, ex);
         }
-        XYSeries series = new XYSeries("BrentCrude");
+        XYSeries series = new XYSeries("BrentCrude 2000 - 2015");
         for (int i = 0; i < list1.size(); i++) {
             series.add(list1.get(i), list2.get(i));
         }
@@ -49,5 +50,14 @@ public class BrentCrude2000To2015 {
         ChartFrame frame = new ChartFrame("XY graph using JFreeFrame", chart);
         frame.pack();
         frame.setVisible(true);
+
+        try {
+            ChartUtilities.saveChartAsJPEG(new File("H:"
+                    + "\\NetBeansProjects\\Lab 9 Text File Input "
+                    + "and output Creating Graphs Class Inheritance"
+                    + "\\BrentCrude200To2015.jpg"), chart, 900, 900);
+        } catch (Exception ex) {
+            System.out.print("Problem saving jpg file");
+        }
     }
 }
